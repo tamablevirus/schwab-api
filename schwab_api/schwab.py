@@ -698,6 +698,12 @@ class Schwab(SessionManager):
                     if "symbol" not in position:
                         valid_parse = False
                         break
+
+                    # Sometimes the positions dont havea qty so we will skip them for now
+                    # TODO: We need to see what the actual response is and if these need to be parsed
+                    if "qty" not in position or "qty" not in position["qty"]:
+                        continue
+
                     positions.append(
                         Position(
                             position["symbol"]["symbol"],
